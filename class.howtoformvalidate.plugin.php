@@ -3,8 +3,8 @@
 $PluginInfo['HowToFormValidate'] = array(
     'Name' => 'HowTo: Form & Validation',
     'Description' => 'Custom form and validation example.',
-    'Version' => '0.1',
-    'RequiredApplications' => array('Vanilla' => '>= 2.1'),
+    'Version' => '0.2',
+    'RequiredApplications' => array('Vanilla' => '>= 2.2'),
     'RequiredTheme' => false,
     'MobileFriendly' => true,
     'HasLocale' => false,
@@ -32,7 +32,7 @@ class HowToFormValidatePlugin extends Gdn_Plugin {
      * @package HowToFormValidate
      * @since 0.1
      */
-    public function setup () {
+    public function setup() {
 
     }
 
@@ -44,7 +44,7 @@ class HowToFormValidatePlugin extends Gdn_Plugin {
      * @package HowToFormValidate
      * @since 0.1
      */
-    public function onDisable () {
+    public function onDisable() {
 
     }
 
@@ -57,11 +57,11 @@ class HowToFormValidatePlugin extends Gdn_Plugin {
      * @package HowToFormValidate
      * @since 0.1
      */
-    public function base_render_before ($sender) {
+    public function base_render_before($sender) {
         // We only need to add the menu entry if a) the controller has a menu
         // and b) we are not in the admin area.
-        if ($sender->Menu && $sender->masterView != 'admin') {
-            $sender->Menu->AddLink('', t('Form & Validation'), 'vanilla/HowToFormValidate');
+        if ($sender->Menu && $sender->MasterView != 'admin') {
+            $sender->Menu->addLink('', t('Form & Validation'), 'vanilla/HowToFormValidate');
         }
     }
 
@@ -79,7 +79,7 @@ class HowToFormValidatePlugin extends Gdn_Plugin {
      * @package HowToFormValidate
      * @since 0.1
      */
-    public function vanillaController_howToFormValidate_create ($sender, $args) {
+    public function vanillaController_howToFormValidate_create($sender, $args) {
         // Use themes master view.
         $sender->masterView();
 
