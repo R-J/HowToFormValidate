@@ -3,7 +3,7 @@
 $PluginInfo['HowToFormValidate'] = array(
     'Name' => 'HowTo: Form & Validation',
     'Description' => 'Custom form and validation example.',
-    'Version' => '0.2',
+    'Version' => '0.3',
     'RequiredApplications' => array('Vanilla' => '>= 2.2'),
     'RequiredTheme' => false,
     'MobileFriendly' => true,
@@ -84,12 +84,14 @@ class HowToFormValidatePlugin extends Gdn_Plugin {
         $sender->masterView();
 
         // Add common modules.
-        foreach (c('Modules.Vanilla.Panel') as $module) {
-            // We have to exclude the MeModule here, because it is already added
-            // by the template and it would appear twice otherwise.
-            if ($module != 'MeModule') {
-                $sender->addModule($module);
-            }
+        $modules = array_diff(
+                c('Modules.Vanilla.Panel'),  // The modules sort list from the config
+                array_keys($sender->Assets['Panel']), // Minus: all previously attached modules
+                array('MeModule') // Minus: the MeModule that is inserted by the default.master.tpl
+        );
+        foreach ($modules as $module) {
+            // Attach each module to the panel.
+            $sender->addModule($module);
         }
 
         $title = t('Custom Form & Validation');
